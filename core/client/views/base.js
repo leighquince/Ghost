@@ -190,7 +190,15 @@
         },
         addItem: function (item) {
             this.model.push(item);
-            this.renderItem(item);
+            var modelLength = this.model.length;
+            this.model =  _.uniq(this.model, function(target,index,array){
+                return JSON.stringify(target) === JSON.stringify(array[index]);
+
+            });
+            if(modelLength == this.model.length)
+            {
+                this.renderItem(item);
+            }
         },
         clearEverything: function () {
             this.$el.find('.js-notification.notification-passive').remove();
